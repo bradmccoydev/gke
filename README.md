@@ -23,7 +23,7 @@ cd src && terraform init -var-file=deployment/demo.tfvars
 
 terraform plan -var-file=deployment/hugdemo.tfvars
 
-terraform apply -var-file=deployment/demo/dev.tfvars
+terraform apply -var-file=deployment/hugdemo.tfvars
 
 # Danger Zone
 terraform destroy -var-file=deployment/demo.tfvars
