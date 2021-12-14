@@ -1,7 +1,3 @@
-terraform {
-  backend "gcs" {}
-}
-
 provider "google" {
   credentials = file(var.cloud_credentials)
   project     = var.client_project_id

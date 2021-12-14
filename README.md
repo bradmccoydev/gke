@@ -14,11 +14,14 @@ Prefix:  terraform/state/demo
 
 gcloud auth login (DevOps account)
 
+sudo sh setup-gcp-project.sh
+chmod +x provision-gcp.json
+
 # Must be in root directory of project
 
-cd src && terraform init -var-file=deployment/demo.tfvars -backend-config="credentials=./deployment/demo/provision-gcp.json" -backend-config="bucket=oc-devops-dev" -backend-config="prefix=terraform/state/demo"
+cd src && terraform init -var-file=deployment/demo.tfvars 
 
-terraform plan -var-file=deployment/demo/dev.tfvars
+terraform plan -var-file=deployment/hugdemo.tfvars
 
 terraform apply -var-file=deployment/demo/dev.tfvars
 
