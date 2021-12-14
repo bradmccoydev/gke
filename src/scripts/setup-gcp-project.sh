@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 export client_id=oc
-export client_project_id=devops
-export client_environment=dev
+export client_project_id=huggke
+export client_environment=demo
 
 export GOOGLE_CLOUD_PROJECT=$client_id-$client_project_id-$client_environment
 export ACCOUNT_ID=$(gcloud beta billing accounts list | grep True | cut -d ' ' -f1)

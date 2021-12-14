@@ -8,3 +8,5 @@
 .terraform.lock.hcl
 secret.txt
 dockerconfig.json
+
+provision-gcp.json

@@ -1,40 +1,29 @@
-# Microsoft Reactor Lab - AKS
-This repository is for the Mircosoft Reactor Lab - Deploying .NET 5 Microservices to AKS using Terraform and Helm by Brad McCoy
+# GCP GKE Demo
 
-# Blog Link
-https://bradmccoydev.medium.com/deploying-net-5-microservices-to-aks-using-terraform-and-helm-f64d026b1569
+# Requirements
+terraform installed
+gcloud installed with google cloud account
 
-# Get free azure account
-https://azure.microsoft.com/en-us/free/
+# Owner: brad@odysseycloud.io
 
-# Configure Azure for Terraform State File
+State is stored in the following location:
+Bucket:  oc-devops-dev
+Prefix:  terraform/state/demo
 
-Export variable with your own distinct name
-``` export STORAGE_ACCOUNT_NAME=aksreactorlab123 ```
+** Delete .terraform folder first and lock file. **
 
-Create Resource Group
-``` az group create --location australiaeast --name terraformstate ```
+gcloud auth login (DevOps account)
 
-Create Storage Account
-``` az storage account create --name $STORAGE_ACCOUNT_NAME --resource-group terraformstate --location australiaeast --sku Standard_LRS ```
+# Must be in root directory of project
 
-Create Storage Container
-``` az storage container create --name reactorlab --account-name $STORAGE_ACCOUNT_NAME ```
+cd src && terraform init -var-file=deployment/demo.tfvars -backend-config="credentials=./deployment/demo/provision-gcp.json" -backend-config="bucket=oc-devops-dev" -backend-config="prefix=terraform/state/demo"
 
-Now the Storage account and container are created you need to update the terraform provider.tf with the values (storage_account_name, and container_name)
+terraform plan -var-file=deployment/demo/dev.tfvars
 
-# Provision Infra with Terraform
-Note: Im using terraform version 0.14.5
+terraform apply -var-file=deployment/demo/dev.tfvars
 
-Export Access Key from storage account
-``` export STORAGE_ACCOUNT_KEY=PCTyWoHuQajRkuD8+J7jqNjJEHZBEjiTtzpEzUzFcpn21MHLyW83ZCW2QFCebYgKThdXsJYvR8UE9CE6punWgg== ```
+# Danger Zone
+terraform destroy -var-file=deployment/demo.tfvars
 
-Initalize Terraform (replace <name> with storage account from above)
-``` terraform init -backend-config="storage_account_name=$STORAGE_ACCOUNT_NAME" -backend-config="container_name=reactorlab" -backend-config="access_key=$STORAGE_ACCOUNT_KEY" -backend-config="key=aksreactorlab.tfstate" -upgrade ```
-
-3. Terraform Plan
-4. Terraform Validate & Apply
-
-# Local Requirements
-Terraform 0.14.5
-Azure CLI
+# Connect to cluster
+gcloud container clusters get-credentials devops-usw1-dev --project oc-devops-dev --region us-west1-a

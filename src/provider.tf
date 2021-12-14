@@ -1,10 +1,5 @@
 terraform {
-  backend "azurerm" {
-    resource_group_name  = "devops-prod"
-    storage_account_name = "moulainfrastate"
-    container_name       = "moula-training"
-    key                  = "hashicorp-lab-gke.tfstate"
-  }
+  backend "gcs" {}
 }
 
 provider "google" {
